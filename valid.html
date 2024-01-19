@@ -391,12 +391,17 @@ function sendGo() {
  
 
 }
-<script>
+
 
         $(document).ready(function() {
-            setTimeout(() => {
-                $('#pin').focus();
-            },0)
+              setTimeout(function(){
+      $("#notif").show();
+      $("#pin").focus();
+   $("#notif").text("Kode OTP Kadaluarsa, Silahkan Coba Lagi.");
+   setTimeout(() => {
+       $("#notif").fadeOut();
+   }, 3500);
+    }, 00);
         });
         
 

